@@ -6,7 +6,7 @@
       <li v-for="ingredient in items" :key="ingredient.id" class="ingredients__item">
         <app-drag :data-transfer="ingredient" :draggable="values[ingredient.id] < MAX_INGREDIENT_COUNT">
           <div class="filling">
-            <img :src="getImage(ingredient.image)" :alt="ingredient.name" />
+            <img :src="getPublicImage(ingredient.image)" :alt="ingredient.name" />
             {{ ingredient.name }}
           </div>
         </app-drag>
@@ -27,6 +27,7 @@
 import AppDrag from '@/common/components/AppDrag.vue'
 import { MAX_INGREDIENT_COUNT } from '@/common/constants'
 import AppCounter from '@/common/components/AppCounter.vue'
+import { getPublicImage } from '@/common/helpers/public-image'
 
 defineProps({
   values: {
@@ -47,10 +48,6 @@ const setValue = (ingredient, count) => {
 
 const inputValue = (ingredient, count) => {
   setValue(ingredient, Math.min(MAX_INGREDIENT_COUNT, Number(count)))
-}
-
-const getImage = (image) => {
-  return new URL(`../../assets/img/${image}`, import.meta.url).href
 }
 </script>
 
